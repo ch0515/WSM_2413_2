@@ -11,30 +11,46 @@
 //MLSV_YMD : 급식시작일자
 //MLSV_TO_YMD :  급식종료일자
 //https://open.neis.go.kr/hub/mealServiceDietInfo?ATPT_OFCDC_SC_CODE=B10&SD_SCHUL_CODE=7010569&MMEAL_SC_CODE=2&MLSV_YMD=20220927&Type=json
-const KEY = "4c1c34c714584bc7a03a150eb9ff1fe3";
-const ATPT_OFCDC_SC_CODE = "B10"; //서울특별시 교육청
-const SD_SCHUL_CODE = "7010569"; // 미림여자정보과학고등학교
-let MMEAL_SC_CODE = 2;//중식
-let MLSV_YMD = "20220927";
-let url = `https://open.neis.go.kr/hub/mealServiceDietInfo?`
-            +`KEYE=${KEY}`
-            +`ATPT_OFCDC_SC_CODE=${ATPT_OFCDC_SC_CODE}`
-            +`SD_SCHUL_CODE=${SD_SCHUL_CODE}`
-            +`MMEAL_SC_CODE=${MMEAL_SC_CODE}`
-            +`MLSV_YMD=${MLSV_YMD}`;
-// console.log(url);
+// const KEY = "4c1c34c714584bc7a03a150eb9ff1fe3";
+// const ATPT_OFCDC_SC_CODE = "B10"; //서울특별시 교육청
+// const SD_SCHUL_CODE = "7010569"; // 미림여자정보과학고등학교
+// let MMEAL_SC_CODE = 2;//중식
+// let MLSV_YMD = "20220927";
+// let url = `https://open.neis.go.kr/hub/mealServiceDietInfo?`
+//             +`KEYE=${KEY}`
+//             +`ATPT_OFCDC_SC_CODE=${ATPT_OFCDC_SC_CODE}`
+//             +`SD_SCHUL_CODE=${SD_SCHUL_CODE}`
+//             +`MMEAL_SC_CODE=${MMEAL_SC_CODE}`
+//             +`MLSV_YMD=${MLSV_YMD}`;
+// // console.log(url);
 // 실시간으로 급식메뉴 가져오자
 //.date-grid-container>.grid-item에 마우스 올려놓으면(mouseover), handler 함수 호출하자
 let dateGridContainerDiv = document.getElementsByClassName("date-grid-container")[0];
 let gridItems = dateGridContainerDiv.getElementsByClassName("grid-item");
 const handler = (event) => {
-    console.log(year);
-    console.log(month);
+    // console.log(year);
+    // console.log(month);
     let date = event.target.innerHTML;
-    console.log(date);
+    // console.log(date);
+    //handler에서 year, month, date, 식사 로 url 만들어서 AJAX로 급식 정보 가져오자
+    const KEY = "4c1c34c714584bc7a03a150eb9ff1fe3";
+    const ATPT_OFCDC_SC_CODE = "B10"; //서울특별시 교육청
+    const SD_SCHUL_CODE = "7010569";// 미림여자정보과학고등학교
+    // let MMEAL_SC_CODE = 2;//중식
+    let MLSV_YMD = `${year}${month.toString().padStart(2,"0")}${date.padStart(2,0)}`;
+    // console.log(MLSV_YMD);
+    let url = `https://open.neis.go.kr/hub/mealServiceDietInfo?`
+            +`?KEYE=${KEY}`
+            +`&ATPT_OFCDC_SC_CODE=${ATPT_OFCDC_SC_CODE}`
+            +`&SD_SCHUL_CODE=${SD_SCHUL_CODE}`
+            +`&MLSV_YMD=${MLSV_YMD}`;
+            // +`MMEAL_SC_CODE=${MMEAL_SC_CODE}`
+            
+    console.log(url);
+    //urlToJSON(url);
 }
 for( let gridItem of gridItems){
     gridItem.onmouseover = handler;
+    //gridItem.addEventListener("mouseover",handler);
 }
-//handler에서 year, month, date, 식사 로 url 만들어서 AJAX로 급식 정보 가져오자
 //다 가져왔으면, 조식, 중식, 석식 표시하자
