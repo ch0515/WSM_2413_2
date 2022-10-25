@@ -14,6 +14,7 @@ main{
     border: 2px solid #eee;
     border-radius: 8px;
     padding: 8px;
+    cursor: pointer;
 }
 #calendar{
     max-width: 800px;
@@ -29,6 +30,12 @@ main{
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: default;
+}
+.data-grid-container, .grid-item:hover{
+    border-radius: 20px;
+    background-color: greenyellow;
+    cursor: pointer;
 }
 .menu-grid-container{
     display: grid;
