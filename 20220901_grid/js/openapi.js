@@ -83,9 +83,22 @@ const urlToJSON = (url) => {
             if(json['mealServiceDietInfo'][0]['head'][1]['RESULT']['CODE'] == 'INFO-000'){
             //응답이 제대로 왔으면
             //json -> HTML
-                    breakfast.innerHTML = json['mealServiceDietInfo'][1]['row'][0]['DDISH_NM'];
-                    lunch.innerHTML = json['mealServiceDietInfo'][1]['row'][1]['DDISH_NM'];
-                    dinner.innerHTML = json['mealServiceDietInfo'][1]['row'][2]['DDISH_NM'];
+                    let breakfastData = json['mealServiceDietInfo'][1]['row'][0]['DDISH_NM'];
+                    //(5.13.)삭제하자
+                    breakfastData = breakfastData.replace(/\([0-9\.]*\)/g, ""); // 정규표현식 : (문자 숫자나 .문자)문자
+                    // (                \()
+                    // 숫자 한글자    [0123456789]
+                    // .                \.
+                    //0~n개             *
+                    //)                 \)
+                    // 글로벌           g
+                    breakfast.innerHTML = breakfastData;
+                    let lunchData = json['mealServiceDietInfo'][1]['row'][1]['DDISH_NM'];
+                    lunchData = lunchData.replace(/\([0-9\.]*\)/g, "");
+                    lunch.innerHTML = lunchData;
+                    let dinnerData = json['mealServiceDietInfo'][1]['row'][2]['DDISH_NM'];
+                    dinnerData = dinnerData.replace(/\([0-9\.]*\)/g, "");
+                    dinner.innerHTML = dinnerData;
             }else{
                     //응답이 이상하면 없음 표시
                     breakfast.innerHTML = "없음";
