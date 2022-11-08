@@ -102,37 +102,51 @@ const showMenu = (json) => {
     let luch = menus[1];
     let dinner = menus[2];
     //json 안에 조식, 중식, 석식 정보 빼오고
-        try{
-            if(json['mealServiceDietInfo'][0]['head'][1]['RESULT']['CODE'] == 'INFO-000'){
-            //응답이 제대로 왔으면
-            //json -> HTML
-                    let breakfastData = json['mealServiceDietInfo'][1]['row'][0]['DDISH_NM'];
-                    //(5.13.)삭제하자
-                    breakfastData = breakfastData.replace(/\([0-9\.]*\)/g, ""); // 정규표현식 : (문자 숫자나 .문자)문자
-                    // (                \()
-                    // 숫자 한글자    [0123456789]
-                    // .                \.
-                    //0~n개             *
-                    //)                 \)
-                    // 글로벌           g
-                    breakfast.innerHTML = breakfastData;
-                    let lunchData = json['mealServiceDietInfo'][1]['row'][1]['DDISH_NM'];
-                    lunchData = lunchData.replace(/\([0-9\.]*\)/g, "");
-                    lunch.innerHTML = lunchData;
-                    let dinnerData = json['mealServiceDietInfo'][1]['row'][2]['DDISH_NM'];
-                    dinnerData = dinnerData.replace(/\([0-9\.]*\)/g, "");
-                    dinner.innerHTML = dinnerData;
-            }else{
-                    //응답이 이상하면 없음 표시
-                    breakfast.innerHTML = "없음";
-                    lunch.innerHTML = "없음";
-                    dinner.innerHTML = "없음";
-            }
-        }catch{ 
-                    breakfast.innerHTML = "없음";
-                    lunch.innerHTML = "없음";
-                    dinner.innerHTML = "없음";
-        }
-    //HTML에 표시하자
-}
+  try {
+    if (json["mealServiceDietInfo"][0]["head"][1]["RESULT"]["CODE"] == "INFO-000") {
+      //응답이 제대로 왔으면
+      //json -> HTML
+      try {
+        let breakfastData = json["mealServiceDietInfo"][1]["row"][0]["DDISH_NM"];
+        //(5.13.) 삭제하자
+        breakfastData = breakfastData.replace(/\([0-9\.]*\)/g, ""); //정규표현식: (문자 숫자나 .문자 )문자
+        // (             \(
+        // 숫자 한글자    [0123456789]
+        // .             \.
+        // 0~n개         *
+        // )             \)
+        // 글로벌         g
+        breakfast.innerHTML = breakfastData;
+      } catch {
+        breakfast.innerHTML = "없음";
+      }
+      try {
+        let lunchData = json["mealServiceDietInfo"][1]["row"][1]["DDISH_NM"];
+        lunchData = lunchData.replace(/\([0-9\.]*\)/g, "");
+        lunch.innerHTML = lunchData;
+      } catch {
+        lunch.innerHTML = "없음";
+      }
+      try {
+        let dinnerData = json["mealServiceDietInfo"][1]["row"][2]["DDISH_NM"];
+        dinnerData = dinnerData.replace(/\([0-9\.]*\)/g, "");
+        dinner.innerHTML = dinnerData;
+      } catch {
+        dinner.innerHTML = "없음";
+      }
+    } else {
+      //응답이 이상하면
+      //없음 표시하자
+      breakfast.innerHTML = "없음";
+      lunch.innerHTML = "없음";
+      dinner.innerHTML = "없음";
+    }
+  } catch {
+    //문제가 생기면 {'RESULT':}
+    breakfast.innerHTML = "없음";
+    lunch.innerHTML = "없음";
+    dinner.innerHTML = "없음";
+  }
+  //HTML에 표시하자
+};
 showTodayMenu();
