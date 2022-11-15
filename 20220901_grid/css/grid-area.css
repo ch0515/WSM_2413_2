@@ -4,6 +4,7 @@
 .grid-container{
     display: grid;
     grid-template-areas: 
+    ". header header"
     "nav main sidebar";
 }
 .nav{
@@ -14,4 +15,10 @@ main{
 }
 .sidebar{
     grid-area: sidebar;
+}
+header{
+    grid-area: header;
+}
+footer{
+    display: none;
 }
