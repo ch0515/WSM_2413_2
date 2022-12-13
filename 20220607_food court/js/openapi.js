@@ -58,9 +58,10 @@ const urlToJSON = (url) => {
     //callback
     xhr.onreadystatechange = () => {
         if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200){
+            //xhr.readyState(상태)가 준비가 되었고 xhr.status == 200 서버에 문서가 존재하면
             //success
             //console.log("성공"+xhr.response);
-            showMenu(xhr.response);
+            showMenu(xhr.response);//xhr.response(응답하자)
         }else{
             //fail
             //console.log(xhr.status);
